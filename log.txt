@@ -1,0 +1,64 @@
+Construct...
+Construct...
+Pushing 5 & size = 1
+Pushing W & size = 1
+popping...
+popping...
+Pushing 0 & size = 1
+Pushing 1 & size = 2
+Pushing 2 & size = 3
+Pushing 3 & size = 4
+Pushing 4 & size = 5
+Pushing 5 & size = 6
+Realloced to 14
+Pushing 6 & size = 7
+Pushing 7 & size = 8
+Pushing 8 & size = 9
+Pushing 9 & size = 10
+Pushing 10 & size = 11
+Pushing 11 & size = 12
+Pushing 12 & size = 13
+Realloced to 24
+Pushing 13 & size = 14
+Pushing 14 & size = 15
+Pushing 15 & size = 16
+Pushing 16 & size = 17
+Pushing 17 & size = 18
+Pushing 18 & size = 19
+Pushing 19 & size = 20
+Pushing 20 & size = 21
+Pushing 21 & size = 22
+Pushing 22 & size = 23
+Realloced to 34
+Pushing 23 & size = 24
+Pushing 24 & size = 25
+Pushing 25 & size = 26
+Pushing 26 & size = 27
+Pushing 27 & size = 28
+Pushing 28 & size = 29
+Pushing 29 & size = 30
+Pushing 30 & size = 31
+Pushing 31 & size = 32
+Pushing 32 & size = 33
+Realloced to 44
+Pushing 33 & size = 34
+Pushing 34 & size = 35
+Pushing 35 & size = 36
+Pushing 36 & size = 37
+Pushing 37 & size = 38
+Pushing 38 & size = 39
+Pushing 39 & size = 40
+Pushing 40 & size = 41
+Pushing 41 & size = 42
+Pushing 42 & size = 43
+Realloced to 54
+Pushing 43 & size = 44
+Pushing 44 & size = 45
+Pushing 45 & size = 46
+Pushing 46 & size = 47
+Pushing 47 & size = 48
+Pushing 48 & size = 49
+Pushing 49 & size = 50
+destruct...well, ask valgrind about it IT IS NOT MY FUCKING DEAL!
+ destruct...well, ask valgrind about it IT IS NOT MY FUCKING DEAL!
+ 
