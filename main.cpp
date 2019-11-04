@@ -5,32 +5,32 @@
 int main(int argc, char *argv[], char* envp[])
 {
     Stack <int> Stack_int = {};
-    Stack_construct (Stack_int);
+    Stack_int.init ();
     Stack <char> Stack_char = {};
-    Stack_construct (Stack_char);
-    Stack_push (Stack_int, 5);
-    Stack_push (Stack_char, 'W');
+    Stack_char.init ();
+    Stack_int.push (5);
+    Stack_char.push ('W');
     int a = 0;
-    Stack_pop (Stack_int, a);
+    Stack_int.top (a);
     std::cout << a << std::endl;
-    Stack_top (Stack_int, a);
+    Stack_int.pop (a);
     std::cout << a << std::endl;
     char ch = 0;
-    Stack_pop (Stack_char, ch);
+    Stack_char.pop (ch);
     std::cout << ch << std::endl;
 
     for (int i = 0; i < 50; i++) {
-        Stack_push (Stack_int, i);
+        Stack_int.push (i);
     }
-    Stack_fwrite ("Stack.txt", Stack_int);
-    Stack_clean (Stack_int);
-    Stack_fwrite ("Stack_cleaned.txt", Stack_int);
+    Stack_int.fwrite ("Stack.txt");
+    Stack_int.clean ();
+    Stack_int.fwrite ("Stack_cleaned.txt");
     for (int i = 0; i < 10; i++) {
-        if (Stack_pop (Stack_int, a) != UNDERFLOW)
+        if (Stack_int.pop (a) != STACK_UNDERFLOW)
             std::cout << a << std::endl;
     }
-    Stack_destruct (Stack_int);
-    Stack_destruct (Stack_char);
+    Stack_int.destroy ();
+    Stack_char.destroy ();
         logfile.close();
     return 0;
 }

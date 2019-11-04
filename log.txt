@@ -1,64 +1,79 @@
-Construct...
-Construct...
-Pushing 5 & size = 1
-Pushing W & size = 1
-popping...
-popping...
-Pushing 0 & size = 1
-Pushing 1 & size = 2
-Pushing 2 & size = 3
-Pushing 3 & size = 4
-Pushing 4 & size = 5
-Pushing 5 & size = 6
+INIT...
+INIT...
+Pushing 5 & newsize = 1
+Pushing W & newsize = 1
+Topping 5 & size = 1
+Popping 5 & size = 0
+Popping W & size = 0
+Pushing 0 & newsize = 1
+Pushing 1 & newsize = 2
+Pushing 2 & newsize = 3
+Pushing 3 & newsize = 4
+Pushing 4 & newsize = 5
+Pushing 5 & newsize = 6
+Pushing 6 & newsize = 7
 Realloced to 14
-Pushing 6 & size = 7
-Pushing 7 & size = 8
-Pushing 8 & size = 9
-Pushing 9 & size = 10
-Pushing 10 & size = 11
-Pushing 11 & size = 12
-Pushing 12 & size = 13
+Pushing 7 & newsize = 8
+Pushing 8 & newsize = 9
+Pushing 9 & newsize = 10
+Pushing 10 & newsize = 11
+Pushing 11 & newsize = 12
+Pushing 12 & newsize = 13
+Pushing 13 & newsize = 14
 Realloced to 24
-Pushing 13 & size = 14
-Pushing 14 & size = 15
-Pushing 15 & size = 16
-Pushing 16 & size = 17
-Pushing 17 & size = 18
-Pushing 18 & size = 19
-Pushing 19 & size = 20
-Pushing 20 & size = 21
-Pushing 21 & size = 22
-Pushing 22 & size = 23
+Pushing 14 & newsize = 15
+Pushing 15 & newsize = 16
+Pushing 16 & newsize = 17
+Pushing 17 & newsize = 18
+Pushing 18 & newsize = 19
+Pushing 19 & newsize = 20
+Pushing 20 & newsize = 21
+Pushing 21 & newsize = 22
+Pushing 22 & newsize = 23
+Pushing 23 & newsize = 24
 Realloced to 34
-Pushing 23 & size = 24
-Pushing 24 & size = 25
-Pushing 25 & size = 26
-Pushing 26 & size = 27
-Pushing 27 & size = 28
-Pushing 28 & size = 29
-Pushing 29 & size = 30
-Pushing 30 & size = 31
-Pushing 31 & size = 32
-Pushing 32 & size = 33
+Pushing 24 & newsize = 25
+Pushing 25 & newsize = 26
+Pushing 26 & newsize = 27
+Pushing 27 & newsize = 28
+Pushing 28 & newsize = 29
+Pushing 29 & newsize = 30
+Pushing 30 & newsize = 31
+Pushing 31 & newsize = 32
+Pushing 32 & newsize = 33
+Pushing 33 & newsize = 34
 Realloced to 44
-Pushing 33 & size = 34
-Pushing 34 & size = 35
-Pushing 35 & size = 36
-Pushing 36 & size = 37
-Pushing 37 & size = 38
-Pushing 38 & size = 39
-Pushing 39 & size = 40
-Pushing 40 & size = 41
-Pushing 41 & size = 42
-Pushing 42 & size = 43
+Pushing 34 & newsize = 35
+Pushing 35 & newsize = 36
+Pushing 36 & newsize = 37
+Pushing 37 & newsize = 38
+Pushing 38 & newsize = 39
+Pushing 39 & newsize = 40
+Pushing 40 & newsize = 41
+Pushing 41 & newsize = 42
+Pushing 42 & newsize = 43
+Pushing 43 & newsize = 44
 Realloced to 54
-Pushing 43 & size = 44
-Pushing 44 & size = 45
-Pushing 45 & size = 46
-Pushing 46 & size = 47
-Pushing 47 & size = 48
-Pushing 48 & size = 49
-Pushing 49 & size = 50
-destruct...well, ask valgrind about it IT IS NOT MY FUCKING DEAL!
- destruct...well, ask valgrind about it IT IS NOT MY FUCKING DEAL!
- 
+Pushing 44 & newsize = 45
+Pushing 45 & newsize = 46
+Pushing 46 & newsize = 47
+Pushing 47 & newsize = 48
+Pushing 48 & newsize = 49
+Pushing 49 & newsize = 50
+Stack written successfilly
+Destroy...well, ask valgrind about it IT IS NOT MY DEAL!
+INIT...
+Cleaned...
+Stack written successfilly
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+ERROR UNDERFLOW at Stack by Stack_pop()!
+Destroy...well, ask valgrind about it IT IS NOT MY DEAL!
+Destroy...well, ask valgrind about it IT IS NOT MY DEAL!

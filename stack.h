@@ -6,38 +6,41 @@
 std::ofstream logfile ("log.txt");
 
 const size_t CAP = 7;
-const int OVERFLOW = 1;
-const int UNDERFLOW = -1;
-const int REALLOC_ERROR = 2;
-const size_t REALLOC_LIMIT = 10;
-const int CLEAN_ERROR = 3;
+const int STACK_OVERFLOW = 11;
+const int STACK_UNDERFLOW = -1;
+const int STACK_SEG_FAULT = 1;
+const int STACK_CAN_ERROR = 7;
+const int STACK_REALLOC_ERROR = 2;
+const size_t STACK_REALLOC_LIMIT = 10;
+const int STACK_CLEAN_ERROR = 3;
+const int STACK_UNID_ERROR = -666;
+const int STACK_HASH_ERROR = -13;
 const int OPEN_FILE_ERROR = -1;
 
 template <typename T>
-struct Stack
+class Stack
 {
-    T *Data;
-    size_t Size;
-    size_t Capacity;
-};
+    private:
+        T *Data;
+        char* Alloc_pointer;
+        size_t Size;
+        size_t Capacity;
+        long long Hashsum;
+        int Can1 = -13;
+        int Can2 = -17;
+        int OK ();
+        long long Hash ();
+        int realloc ();
+    public:
+        void init (); //deal with memory
+        void destroy ();
+        int clean ();
 
-template <typename T>
-void Stack_construct (Stack <T> &Stack);
-template <typename T>
-void Stack_destruct (Stack <T> &Stack);
-template <typename T1, typename T2>
-int Stack_push (Stack <T1> &Stack, T2 value);
-template <typename T>
-int Stack_realloc (Stack <T> &Stack);
-template <typename T1, typename T2>
-int Stack_pop (Stack <T1> &Stack, T2 &value);
-template <typename T1, typename T2>
-int Stack_top (Stack <T1> &Stack, T2 &value);
-template <typename T>
-int Stack_clean (Stack <T> &Stack);
-template <typename T>
-int Stack_clean_fast (Stack <T> &Stack);
-template <typename T>
-int Stack_fwrite (const char* File, Stack <T> &Stack);
+        int push (T value); //no-deal with memory
+        int pop (T &value);
+        int top (T &value);
+        int clean_fast ();
+        int fwrite (const char* File);
+};
 
 #include "stack.cpp"

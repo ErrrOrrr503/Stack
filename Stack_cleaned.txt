@@ -1,0 +1,4 @@
+Stack.Size = 0 Stack.Capacity = 7
+Stack.Can1_saved = -13 Stack.Can2_saved = -17
+Stack.Can1_real = -13 Stack.Can2_real = -17
+Stack.Hashsum = 5132

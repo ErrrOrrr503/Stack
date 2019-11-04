@@ -1,115 +1,182 @@
 template <typename T>
-void Stack_construct (Stack <T> &Stack)
+void Stack<T>::init ()
 {
-    Stack.Data = new T[CAP];
-    Stack.Size = 0;
-    Stack.Capacity = CAP;
-        logfile << "Construct...\n";
+    this->Alloc_pointer = new char[CAP * sizeof(T) + 2 * sizeof(int)];
+    if (this->Alloc_pointer == NULL) {
+            logfile << "ERROR INITING at Stack!\n";
+    }
+    this->Data = (T*) (this->Alloc_pointer + sizeof(int));
+    *((int*) this->Alloc_pointer) = this->Can1; //setting Can1
+    *((int*) (this->Data + CAP)) = this->Can2;  //setting Can2
+    this->Can1 = *((int*) this->Alloc_pointer);
+    this->Can2 = *((int*) (this->Data + CAP));
+    this->Size = 0;
+    this->Capacity = CAP;
+    this->Hashsum = Stack<T>::Hash ();
+        logfile << "INIT...\n";
 }
 
 template <typename T>
-void Stack_destruct (Stack <T> &Stack)
+void Stack<T>::destroy ()
 {
-    delete[] Stack.Data;
-    Stack.Size = 0;
-    Stack.Capacity = 0;
-        logfile << "destruct...well, ask valgrind about it IT IS NOT MY DEAL!\n";
-}
-
-template <typename T1, typename T2>
-int Stack_push (Stack <T1> &Stack, T2 value)
-{
-    if (Stack.Size >= Stack.Capacity - 1)
-        if (Stack_realloc (Stack) == REALLOC_ERROR) {
-                logfile << "ERROR OVERFLOW at <" << typeid(T1).name() << "> Stack!\n";
-            return OVERFLOW;
-        }
-    Stack.Data[Stack.Size++] = value;
-        logfile << "Pushing " << value << " & size = " << Stack.Size << std::endl;
-    return 0;
+    int Err = this->OK ();
+    if (Err) {
+        logfile << "Trying to destroy corrupted stack, hope no devil`ll appear...\n";
+    }
+    delete[] this->Alloc_pointer;
+    this->Size = 0;
+    this->Capacity = 0;
+    this->Hashsum = Stack<T>::Hash ();
+        logfile << "Destroy...well, ask valgrind about it IT IS NOT MY DEAL!\n";
 }
 
 template <typename T>
-int Stack_realloc (Stack <T> &Stack)
+int Stack<T>::realloc ()
 {
     size_t New_Size = 0;
-    if (Stack.Capacity >= REALLOC_LIMIT)
-        New_Size = REALLOC_LIMIT + Stack.Capacity;
+    if (this->Capacity >= STACK_REALLOC_LIMIT)
+        New_Size = STACK_REALLOC_LIMIT + this->Capacity;
     else
-        New_Size = 2 * Stack.Capacity;
-    T *New_Data = new T[New_Size];
-    if (New_Data == NULL) {
-            logfile << "ERROR REALLOCING at <" << typeid(T).name() << "> Stack!\n";
-        return REALLOC_ERROR;
-    }
-    std::memcpy (New_Data, Stack.Data, Stack.Capacity * sizeof (T));
-    delete[] Stack.Data;
-    Stack.Data = New_Data;
-    Stack.Capacity = New_Size;
-        logfile << "Realloced to " << Stack.Capacity << std::endl;
-    return 0;
-}
+        New_Size = 2 * this->Capacity;
 
-template <typename T1, typename T2>
-int Stack_pop (Stack <T1> &Stack, T2 &value)
-{
-    if (Stack.Size <= 0) {
-            logfile << "ERROR UNDERFLOW at <" << typeid(T1).name() << "> Stack by Stack_pop()!\n";
-        return UNDERFLOW;
+    char* New_Alloc_pointer = new char[New_Size * sizeof(T) + 2 * sizeof(int)];
+    if (New_Alloc_pointer == NULL) {
+            logfile << "ERROR REALLOCING at Stack!\n";
+        return STACK_REALLOC_ERROR;
     }
-    value = Stack.Data[--Stack.Size];
-        logfile << "Popping " << value << " & size = " << Stack.Size << std::endl;
-    return 0;
-}
+    T* New_Data = (T*) (New_Alloc_pointer + sizeof(int));
 
-template <typename T1, typename T2>
-int Stack_top (Stack <T1> &Stack, T2 &value)
-{
-    if (Stack.Size <= 0) {
-            logfile << "ERROR UNDERFLOW at <" << typeid(T1).name() << "> Stack by Stack_top()!\n";
-        return UNDERFLOW;
-    }
-    value = Stack.Data[Stack.Size - 1];
-        logfile << "Topping " << value << " & size = " << Stack.Size << std::endl;
+    std::memcpy (New_Data, this->Data, this->Capacity * sizeof (T));
+    *((int*) New_Alloc_pointer) = this->Can1; //setting Can1
+    *((int*) (New_Data + New_Size)) = this->Can2; //setting Can2
+    delete[] this->Alloc_pointer;
+    this->Alloc_pointer = New_Alloc_pointer;
+    this->Data = New_Data;
+    this->Capacity = New_Size;
+    this->Hashsum = Stack<T>::Hash ();
+        logfile << "Realloced to " << this->Capacity << std::endl;
     return 0;
 }
 
 template <typename T>
-int Stack_clean (Stack <T> &Stack)
+int Stack<T>::clean ()
 {
-    delete[] Stack.Data;
-    Stack.Size = 0;
-    Stack.Data = new T[CAP];
-    if (Stack.Data == NULL) {
-            logfile << "ERROR while cleaning in Stack_clean!\n";
-        return CLEAN_ERROR;
-    }
-    Stack.Capacity = CAP;
+    int Err = this->OK ();
+    if (Err)
+        return Err;
+    this->destroy ();
+    this->init ();
         logfile << "Cleaned...\n";
     return 0;
 }
 
 template <typename T>
-int Stack_clean_fast (Stack <T> &Stack)
+int Stack<T>::push (T value)
 {
-    Stack.Size = 0;
-    logfile << "fast-cleaned\n";
+    int Err = this->OK ();
+    if (Err)
+        return Err;
+    if (this->Size > this->Capacity - 1)
+        if (this->realloc () == STACK_REALLOC_ERROR) {
+                logfile << "ERROR OVERFLOW at Stack!\n";
+            return STACK_OVERFLOW;
+        }
+    this->Data[this->Size] = value;
+    this->Size++;
+    this->Hashsum = this->Hash ();
+        logfile << "Pushing " << value << " & newsize = " << this->Size << std::endl;
     return 0;
 }
 
 template <typename T>
-int Stack_fwrite (const char* File, Stack <T> &Stack)
+int Stack<T>::pop (T &value)
+{
+    int Err = this->OK ();
+    if (Err)
+        return Err;
+    this->Size--;
+    if (this->Size > this->Capacity - 1) {
+            logfile << "ERROR UNDERFLOW at Stack by Stack_pop()!\n";
+        this->Size++;
+        return STACK_UNDERFLOW;
+    }
+    value = this->Data[this->Size];
+    this->Hashsum = this->Hash ();
+        logfile << "Popping " << value << " & size = " << this->Size << std::endl;
+    return 0;
+}
+
+template <typename T>
+int Stack<T>::top (T &value)
+{
+    int Err = this->OK ();
+    if (Err)
+        return Err;
+    this->Size--;
+    if (this->Size > this->Capacity - 1) {
+            logfile << "ERROR UNDERFLOW at Stack by Stack_top()!\n";
+        this->Size++;
+        return STACK_UNDERFLOW;
+    }
+    value = this->Data[this->Size];
+    this->Size++;
+    this->Hashsum = this->Hash ();
+        logfile << "Topping " << value << " & size = " << this->Size << std::endl;
+    return 0;
+}
+
+template <typename T>
+int Stack<T>::clean_fast ()
+{
+    int Err = this->OK ();
+    if (Err)
+        return Err;
+    this->Size = 0;
+    this->Hash = this->Hash ();
+        logfile << "fast-cleaned\n";
+    return 0;
+}
+
+template <typename T>
+int Stack<T>::fwrite (const char* File)
 {
     std::ofstream Stack_out (File);
     if (!Stack_out) {
         return OPEN_FILE_ERROR;
             logfile << "ERROR opening file in Stack_fwrite\n";
     }
-    Stack_out << "Stack.Size = " << Stack.Size << " Stack.Capacity = " << Stack.Capacity << "\n";
-    for (size_t i = 0; i < Stack.Size; i++) {
-        Stack_out << "[" << i << "/" << Stack.Size - 1 << "] = " << Stack.Data[i] << std::endl;
+    Stack_out << "Stack.Size = " << this->Size << " Stack.Capacity = " << this->Capacity << std::endl;
+    Stack_out << "Stack.Can1_saved = " << this->Can1 << " Stack.Can2_saved = " << this->Can2 << std::endl;
+    Stack_out << "Stack.Can1_real = " << *((int*) this->Alloc_pointer) << " Stack.Can2_real = " << *((int*) (this->Data + this->Capacity)) << std::endl;
+    Stack_out <<"Stack.Hashsum = " << this->Hashsum << std::endl;
+    for (size_t i = 0; i < this->Size; i++) {
+        Stack_out << "[" << i << "/" << this->Size - 1 << "] = " << this->Data[i] << std::endl;
     }
         logfile << "Stack written successfilly\n";
     Stack_out.close();
     return 0;
+}
+
+template <typename T>
+int Stack<T>::OK ()
+{
+    if (this->Can1 != *((int*) this->Alloc_pointer) || this->Can2 != *((int*) (this->Data + this->Capacity))) {
+            logfile << "ERROR CANARY DEAD ⊗_⊗\n";
+        return STACK_CAN_ERROR;
+    }
+    if (this->Hash () != this->Hashsum) {
+            logfile << "ERROR HASH\n";
+        return STACK_HASH_ERROR;
+    }
+    if (this->Size > this->Capacity) {
+            logfile << "ERROR SEG FAULT\n";
+        return STACK_SEG_FAULT;
+    }
+    return 0;
+}
+
+template <typename T>
+long long Stack<T>::Hash ()
+{
+    return (this->Size * 666) % 13 + (93 * this->Can1 % this->Can2) + 2 * ((long long) this->Data % 3141) + 'I' * 's' * 'o' * 'L' * 'a' / 't' / 'o' / 'r' * (this->Capacity) % 7;
 }
