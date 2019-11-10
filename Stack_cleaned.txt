@@ -1,4 +1,15 @@
-Stack.Size = 0 Stack.Capacity = 7
-Stack.Can1_saved = -13 Stack.Can2_saved = -17
-Stack.Can1_real = -13 Stack.Can2_real = -17
-Stack.Hashsum = 5132
+Stack.Data* =          93862293852340
+Stack.Alloc_pointer* = 93862293852336
+Stack.Size =     0
+Stack.Capacity = 7
+Stack.Can1_saved = 1811667948 Stack.Can2_saved = 1983070957
+Stack.Can1_real =  1811667948 Stack.Can2_real =  1983070957
+Stack.Can_struct1 = 720354820 Stack.Can_struct2 = 1651126457 Stack.Can_struct_verify = -1923486019
+Stack.Hashsum = 981398836
+[0/6] = 0
+[1/6] = 0
+[2/6] = 0
+[3/6] = 3
+[4/6] = 4
+[5/6] = 5
+[6/6] = 6

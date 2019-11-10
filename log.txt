@@ -60,11 +60,13 @@ Pushing 46 & newsize = 47
 Pushing 47 & newsize = 48
 Pushing 48 & newsize = 49
 Pushing 49 & newsize = 50
-Stack written successfilly
+Started hard_dumping_struct, cheap & serious...
+Started hard_dumping_data, cheap & serious...
+Stack written successfilly) Is it that bad that you used me?
 Destroy...well, ask valgrind about it IT IS NOT MY DEAL!
 INIT...
 Cleaned...
-Stack written successfilly
+Stack written successfilly) Is it that bad that you used me?
 ERROR UNDERFLOW at Stack by Stack_pop()!
 ERROR UNDERFLOW at Stack by Stack_pop()!
 ERROR UNDERFLOW at Stack by Stack_pop()!

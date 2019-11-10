@@ -22,11 +22,14 @@ int main(int argc, char *argv[], char* envp[])
     for (int i = 0; i < 50; i++) {
         Stack_int.push (i);
     }
-    Stack_int.fwrite ("Stack.txt");
+    Stack_int.hard_dump_struct ("HARD_DUMP_INT_FULL.BIN");
+    Stack_int.hard_dump_Data ("HARD_DUMP_INT_DATA.BIN");
+    Stack_char.errtell ();
+    Stack_int.filewrite ("Stack.txt");
     Stack_int.clean ();
-    Stack_int.fwrite ("Stack_cleaned.txt");
+    Stack_int.filewrite ("Stack_cleaned.txt");
     for (int i = 0; i < 10; i++) {
-        if (Stack_int.pop (a) != STACK_UNDERFLOW)
+        if (!Stack_int.pop (a))
             std::cout << a << std::endl;
     }
     Stack_int.destroy ();
