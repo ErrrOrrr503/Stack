@@ -37,8 +37,8 @@ void Stack<T>::init ()
 
     this->Size = 0;
     this->Capacity = CAP;
-    this->Hashsum = this->Hash ();
     this->Status = READY;
+    this->Hashsum = this->Hash ();
         logfile << "INIT...\n";
 }
 
@@ -52,8 +52,8 @@ void Stack<T>::destroy ()
     delete[] this->Alloc_pointer;
     this->Size = 0;
     this->Capacity = 0;
-    this->Hashsum = this->Hash ();
     this->Status = NOT_INIT;
+    this->Hashsum = this->Hash ();
         logfile << "Destroy...well, ask valgrind about it IT IS NOT MY DEAL!\n";
 }
 
@@ -177,7 +177,8 @@ int Stack<T>::filewrite (const char* File)
     Stack_out << "Stack.Can1_saved = " << this->Can1 << " Stack.Can2_saved = " << this->Can2 << std::endl;
     Stack_out << "Stack.Can1_real =  " << *((int*) this->Alloc_pointer) << " Stack.Can2_real =  " << *((int*) (this->Data + this->Capacity)) << std::endl;
     Stack_out << "Stack.Can_struct1 = " << this->Can_struct1 << " Stack.Can_struct2 = " << this->Can_struct2 << " Stack.Can_struct_verify = " << this->Can_struct_verify << std::endl;
-    Stack_out <<"Stack.Hashsum = " << this->Hashsum << std::endl;
+    Stack_out << "Stack.Hashsum = " << this->Hashsum << std::endl;
+    Stack_out << "Calc  Hashsum = " << this->Hash () << std::endl;
     for (size_t i = 0; i < this->Capacity; i++) {
         Stack_out << "[" << i << "/" << this->Capacity - 1 << "] = " << this->Data[i] << std::endl;
     }
@@ -272,5 +273,16 @@ int Stack<T>::OK ()
 template <typename T>
 long long Stack<T>::Hash ()
 {
-    return (this->Size * 666) % 13 + (93 * this->Can1 % this->Can2) + 2 * ((long long) this->Data % 3141) + 'I' * 's' * 'o' * 'L' * 'a' / 't' / 'o' / 'r' * (this->Capacity) % 7;
+    long long Hashsum = 0;
+    char *ptr = (char *) this;
+    char *ptr_end = ptr + sizeof (*this);
+    char *ptr_Hashsum = (char*) &(this->Hashsum);
+    for (; ptr < ptr_Hashsum; ptr += 1) {
+        Hashsum += (*ptr * 359 + 5193) % 3141;
+    }
+    ptr += sizeof (this->Hashsum);
+    for (; ptr < ptr_end; ptr += 1) {
+        Hashsum += (*ptr * 359 + 5193) % 3141;
+    }
+    return Hashsum;
 }
