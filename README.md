@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 stack with some safety features:
 it is dynamic, default capacity is 7. Aggressive realloc (doubles the size) works until capacity is below realloc limit. Othrewise [realloc limit] number of new elements is added to capacity.
 uses templates that allow you to create any stack type you want
@@ -20,7 +19,6 @@ canaries on strucrure and type-independed canaries on Data are used.
 Hashsum is calculated by Hash() out of structure data, it is designed to be independed of number of variables in structure.
 No hashsum on Data is used as it was considered to be too slow.
 Hashsum and Canaries are always checked before operations with stack by OK()
-=======
 stack with some safety features.
 For dumping "Hard_dump" and "fwrite" functions are used
 >>>>>>> 660b5a8e9cb94759501af97072e82cdee42bfec1
