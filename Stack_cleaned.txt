@@ -1,12 +1,12 @@
-Stack.Data* =          94021883842740
-Stack.Alloc_pointer* = 94021883842736
+Stack.Data* =          94319775944884
+Stack.Alloc_pointer* = 94319775944880
 Stack.Size =     0
 Stack.Capacity = 7
-Stack.Can1_saved = 770799493 Stack.Can2_saved = 1848708304
-Stack.Can1_real =  770799493 Stack.Can2_real =  1848708304
-Stack.Can_struct1 = 1647821809 Stack.Can_struct2 = 1275721079 Stack.Can_struct_verify = -1371424408
-Stack.Hashsum = 75863
-Calc  Hashsum = 75863
+Stack.Can1_saved = 1676074004 Stack.Can2_saved = 2142659500
+Stack.Can1_real =  1676074004 Stack.Can2_real =  2142659500
+Stack.Can_struct1 = 449528702 Stack.Can_struct2 = 905745671 Stack.Can_struct_verify = 1355274373
+Stack.Hashsum = 67050
+Calc  Hashsum = 67050
 [0/6] = 0
 [1/6] = 0
 [2/6] = 0

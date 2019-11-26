@@ -208,6 +208,7 @@ int Stack<T>::errtell ()
         default:
             break;
     }
+    return 0;
 }
 
 template <typename T>
